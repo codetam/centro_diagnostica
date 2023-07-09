@@ -61,6 +61,7 @@
               include_once("additional_pages/info_esame.php");
 
               if($completato == "No"){
+                include_once("modals/carica_referto.php");
                 // Button per caricare il modal
                 echo '<button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#carica_referto">Completa</button>';
               }
@@ -76,6 +77,7 @@
             </div>
             <br>
             <div class="row">
+              <?php include_once("modals/modifica_referto.php"); ?>
               <!-- Button per caricare il modal -->
               <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modifica_referto">Modifica referto</button>
             </div>
@@ -84,9 +86,6 @@
               <button id="aggiungiImmagineButton" type="button" class="btn btn-warning btn-lg" >Aggiungi immagine</button>
             </div>
             <?php
-                // Modal di Bootstrap per il referto  
-                include_once("modals/modifica_referto.php");
-                include_once("modals/carica_referto.php");
               }
             ?>
           </div>
