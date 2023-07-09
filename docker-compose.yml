@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  php-apache:
+    ports:
+      - "80:80"
+    build: './build/php'
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - default
+
+  database:
+    ports:
+      - "3306:3306"
+    build: './build/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: WkG7vqWUF65W9o!z
+      MYSQL_DATABASE: centro_diagnostica
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - default
+
+  phpmyadmin:
+    build: './build/phpmyadmin'
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: database
+      MEMORY_LIMIT: 512M
+      UPLOAD_LIMIT: 128M
+    volumes:
+      - ./config/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+    networks:
+      - default
+
+networks:
+  default:
+    external: false
