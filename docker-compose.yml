@@ -1,5 +1,13 @@
 version: "3.9"
 services:
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - php-apache
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   php-apache:
     ports:
       - "80:80"
@@ -8,6 +16,10 @@ services:
       - ./app:/var/www/html
     networks:
       - default
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.php-apache.schedule: "@every 1m"
+      ofelia.job-exec.php-apache.command: "php /var/www/html/src/check_codicetemp.php"
 
   database:
     ports:
