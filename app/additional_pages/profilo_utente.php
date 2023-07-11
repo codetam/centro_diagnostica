@@ -10,6 +10,8 @@
             $utente = json_decode($json);
             $json = file_get_contents('http://localhost/api/esame/read/utente/' . $_SESSION["codice_fiscale"]);
             $esami = json_decode($json);
+            $json = file_get_contents('http://localhost/api/statistiche/read/utente/' . $_SESSION["codice_fiscale"]);
+            $num_esami = json_decode($json);
           ?>
         </nav>
       </div>
@@ -19,8 +21,6 @@
         <!-- Informazioni generali -->
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
             <h5 class="my-3">
                 <?php
                     echo $utente->nome;
@@ -92,6 +92,32 @@
                   <?php
                     echo $utente->via . " " . $utente->numero . 
                     ", " . $utente->citta_residenza . ", " . $utente->provincia_residenza;
+                  ?>
+                </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Esami terminati</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">
+                  <?php
+                    echo $num_esami->num_terminati;
+                  ?>
+                </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Prenotazioni</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">
+                  <?php
+                    echo $num_esami->num_non_terminati;
                   ?>
                 </p>
               </div>

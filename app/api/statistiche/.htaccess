@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^read/num_esami read.php?num_esami=1 [NC,L]
+RewriteRule ^read/num_utenti read.php?num_utenti=1 [NC,L]
+RewriteRule ^read/num_sesso read.php?num_sesso=1 [NC,L]
+RewriteRule ^read/utente/([0-9a-zA-Z_-]*)$ read.php?codice_utente=$1 [NC,L]
