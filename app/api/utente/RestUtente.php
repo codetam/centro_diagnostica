@@ -167,7 +167,7 @@ class RestUtente{
         }
         catch(Exception $e){
             // C'è stato un errore, rollback
-            return $this->creazioneFallita("Errore nella registrazione, probabile che la residenza sia associata ad un altro utente, oppure il codice fiscale non presenta 16 caratteri");
+            return $this->creazioneFallita("Errore nella registrazione, probabile che la residenza sia associata ad un altro utente, oppure che il codice fiscale sia errato.");
         }
         // Tutto è andato a buon fine
         $risposta = array(
@@ -233,5 +233,78 @@ class RestUtente{
 
 		header('Content-Type: application/json');
         echo json_encode($utente, JSON_PRETTY_PRINT);	
+	}
+    public function deleteUtente($codice_fiscale) {
+        if($codice_fiscale){
+		    $query = "
+		    	DELETE FROM ".$this->tabellaUtente." 
+		    	WHERE codice_fiscale = ?";
+            $stmt = mysqli_prepare($this->conn, $query);
+            mysqli_stmt_bind_param($stmt, "s", $codice_fiscale);
+            mysqli_stmt_execute($stmt);
+		    if( mysqli_stmt_affected_rows($stmt) > 0 ) {
+		    	$messaggio = "Utente cancellato con successo.";
+		    	$state = 1;			
+		    } else {
+		    	$messaggio = "Cancellazione utente fallita.";
+		    	$state = 0;			
+		    }		
+            mysqli_stmt_close($stmt);
+	    } 
+        else {
+		    $messaggio = "Richiesta non valida.";
+		    $state = 0;
+	    }
+	    $risposta = array(
+	    	'state' => $state,
+	    	'messaggio' => $messaggio
+	    );
+
+	    header('Content-Type: application/json');
+	    echo json_encode($risposta, JSON_PRETTY_PRINT);	
+	}
+    function updateUtente($data){
+        $codice_fiscale = $data["codice_fiscale"];
+        $nome = $data["nome"];
+        $cognome = $data["cognome"];
+        $email = $data["email"];
+        $password = $data["password"];
+        $telefono = $data["telefono"];
+        $sesso = $data["sesso"];
+        $data_nascita = $data["data_nascita"];
+
+        $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+        $query="
+            UPDATE ".$this->tabellaUtenti." 
+            SET nome=?, cognome=?, email=?,
+            password=?, telefono=?, sesso=?,
+            data_nascita=?
+            WHERE codice_fiscale = ?";
+        $stmt = mysqli_prepare($this->conn, $query);
+        mysqli_stmt_bind_param($stmt, "ssssssss",
+                                $nome,
+                                $cognome, 
+                                $email,
+                                $hashedPwd,
+                                $telefono, 
+                                $sesso,
+                                $data_nascita,
+                                $codice_fiscale);
+        mysqli_stmt_execute($stmt);
+
+        if( mysqli_stmt_affected_rows($stmt) > 0 ) {
+            $messaggio = "Utente aggiornato con successo.";
+            $state = 1;			
+        } else {
+            $this->creazioneFallita("Errore nell'aggiornamento.");		
+        }
+        $risposta = array(
+	    	'state' => $state,
+	    	'messaggio' => $messaggio
+	    );
+        mysqli_stmt_close($stmt);
+	    
+        header('Content-Type: application/json');
+	    echo json_encode($risposta, JSON_PRETTY_PRINT);	
 	}
 }

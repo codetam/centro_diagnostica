@@ -67,14 +67,14 @@ class RestImmagine{
         mysqli_stmt_execute($stmt);
         $resultData = mysqli_stmt_get_result($stmt);
 
-		$immagini = array();
+		$immagine;
 		while( $record = mysqli_fetch_assoc($resultData) ) {
-			$immagini[] = $record;
+			$immagine = $record;
 		}
         mysqli_stmt_close($stmt);
 
 		header('Content-Type: application/json');
-        echo json_encode($immagini, JSON_PRETTY_PRINT);	
+        echo json_encode($immagine, JSON_PRETTY_PRINT);	
 	}
     public function getImmaginiReferto($id_esame) {
 		$query = "

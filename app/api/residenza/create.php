@@ -5,13 +5,13 @@ include_once('../../src/Database.php');
 $database = new Database();
 $rest = new RestResidenza($database->getConnection());
 switch($requestMethod) {
-	case 'GET':
-        if(isset($_GET['codice_utente'])){
-            $rest->getResidenza($_GET['codice_utente']);
-        }
+	case 'POST':
+		if(isset($_POST["codice_utente"]) && isset($_POST["id_luogo"]) && isset($_POST["via"]) && isset($_POST["numero"]) ){
+			$rest->createResidenza($_POST);
+		}
 		break;
 	default:
-	    header("HTTP/1.0 405 Method Not Allowed");
-	    break;
+		header("HTTP/1.0 405 Method Not Allowed");
+		break;
 }
 ?>

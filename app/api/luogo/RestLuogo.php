@@ -88,14 +88,14 @@ class RestLuogo{
         mysqli_stmt_execute($stmt);
         $resultData = mysqli_stmt_get_result($stmt);
 
-		$luoghi = array();
+		$luogo;
 		while( $record = mysqli_fetch_assoc($resultData) ) {
-			$luoghi[] = $record;
+			$luogo = $record;
 		}
         mysqli_stmt_close($stmt);
 
 		header('Content-Type: application/json');
-        echo json_encode($luoghi, JSON_PRETTY_PRINT);	
+        echo json_encode($luogo, JSON_PRETTY_PRINT);	
 	}
     public function getLuoghi() {		
 		$query = "

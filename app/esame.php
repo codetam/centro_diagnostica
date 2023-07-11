@@ -68,11 +68,12 @@
               else {
                 $json = file_get_contents('http://localhost/api/referto/read/' . $id_esame);
                 $referto = json_decode($json);
+                $testo_referto = $referto->testo;
             ?>
             <hr>
             <div class="row">
               <p><b>Referto</b></p>
-              <p> <?php echo $referto->testo ?> </p>
+              <p> <?php echo $testo_referto ?> </p>
               <div id=imageContainer></div>
             </div>
             <br>

@@ -23,29 +23,17 @@ class RestCodice{
         mysqli_stmt_close($stmt);
 
 		if (mysqli_num_rows($resultData) > 0) {
-            $query = "
-                DELETE FROM ".$this->tabellaCodici." 
-                WHERE id_esame = ?";
-            $stmt = mysqli_prepare($this->conn, $query);
-            mysqli_stmt_bind_param($stmt, "i", $id_esame);
-            mysqli_stmt_execute($stmt);
-            if( mysqli_stmt_affected_rows($stmt) == 0 ) {
-                return false;
-            }
+            return false;
         } 
         return true;
     }
     public function createCodice($data){
         $id_esame = $data["id_esame"];
 
+        // Se esiste già un codice associato all'id
         if(!$this->checkCodice($id_esame)){
-            $risposta = array(
-                'state' => 0,
-                'message' => "Errore nella creazione del codice."
-            );
-            
-            header('Content-Type: application/json');
-            echo json_encode($risposta, JSON_PRETTY_PRINT);
+            $array_id = array( "id_esame" => $id_esame);
+            return $this->updateCodice($array_id);
         }
 
         $codice_univoco = bin2hex(random_bytes(16));
@@ -87,7 +75,7 @@ class RestCodice{
 
     public function getCodice($id_esame) {		
 		$query = "
-			SELECT id_esame, codice_univoco
+			SELECT id_esame, codice_univoco, data_creazione
 			FROM ".$this->tabellaCodici." 
             WHERE id_esame = ?";	
         $stmt = mysqli_prepare($this->conn, $query);
@@ -109,6 +97,7 @@ class RestCodice{
         SELECT 
             CodiciTemporanei.codice_univoco,
             CodiciTemporanei.id_esame,
+            CodiciTemporanei.data_creazione,
             Esami.tipologia,
             Esami.data,
             Esami.ora,
@@ -165,4 +154,37 @@ class RestCodice{
 	    header('Content-Type: application/json');
 	    echo json_encode($rispostaEsame, JSON_PRETTY_PRINT);	
 	}
+    public function updateCodice($data){
+        if($data["id_esame"]) {  
+            $codice_univoco = bin2hex(random_bytes(16));
+			$query="
+				UPDATE ".$this->tabellaCodici." 
+				SET codice_univoco=?, data_creazione=NOW()
+				WHERE id_esame = ?";
+            $stmt = mysqli_prepare($this->conn, $query);
+            mysqli_stmt_bind_param($stmt, "si", 
+                                    $codice_univoco,
+                                    $data["id_esame"]);
+            mysqli_stmt_execute($stmt);
+			if( mysqli_stmt_affected_rows($stmt) > 0 ) {
+				$messaggio = "Codice aggiornato con successo.";
+				$state = 1;			
+			} else {
+				$messaggio = "Aggiornamento codice fallito.";
+				$state = 0;			
+			}
+            mysqli_stmt_close($stmt);
+		} 
+        else {
+			$messaggio = "Richiesta non valida.";
+			$state = 0;
+		}
+		$rispostaEsame = array(
+			'state' => $state,
+			'messaggio' => $messaggio
+		);
+        
+		header('Content-Type: application/json');
+		echo json_encode($rispostaEsame, JSON_PRETTY_PRINT);
+    }
 }
