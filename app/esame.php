@@ -229,8 +229,8 @@ window.addEventListener('load', displayImages);
 
 <style>
     pre {
-        white-space: pre-wrap;     /* Preserve line breaks */
-        word-wrap: break-word;     /* Enable word wrapping */
+        white-space: pre-wrap;
+        word-wrap: break-word;
     }
   .lightbox-button {
     display: inline-block;

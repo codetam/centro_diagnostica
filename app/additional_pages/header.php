@@ -34,7 +34,9 @@ session_start();
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
         <div class="container">
             <!-- Logo -->
-            <a class="navbar-brand fs-4" href="../">Centro di Diagnostica</a>
+            <a class="navbar-brand fs-4" href="../">
+            <img src="images/logo.png" alt="Logo" style="max-height: 40px; max-width: 40px; margin-right: 5px;">
+            Centro di Diagnostica</a>
             <!-- Toggle Button -->
             <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

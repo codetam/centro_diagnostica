@@ -65,7 +65,7 @@
             <hr>
             <div class="row">
               <p><b>Referto</b></p>
-              <p> <?php echo $esame->testo; ?> </p>
+              <p> <?php echo '<pre>' . $esame->testo . '<pre>'; ?> </p>
               <div id=imageContainer></div>
             </div>
           </div>
@@ -116,6 +116,10 @@ window.addEventListener('load', displayImages);
 </script>
 
 <style>
+  pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
   .lightbox-button {
     display: inline-block;
     padding: 10px 20px;
@@ -126,5 +130,3 @@ window.addEventListener('load', displayImages);
     cursor: pointer;
   }
 </style>
-
-
