@@ -73,7 +73,7 @@
             <hr>
             <div class="row">
               <p><b>Referto</b></p>
-              <p> <?php echo $testo_referto ?> </p>
+              <p> <?php echo '<pre>' . $testo_referto . '<pre>' ?> </p>
               <div id=imageContainer></div>
             </div>
             <br>
@@ -228,6 +228,10 @@ window.addEventListener('load', displayImages);
 </script>
 
 <style>
+    pre {
+        white-space: pre-wrap;     /* Preserve line breaks */
+        word-wrap: break-word;     /* Enable word wrapping */
+    }
   .lightbox-button {
     display: inline-block;
     padding: 10px 20px;
