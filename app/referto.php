@@ -1,8 +1,7 @@
-<?php
-    include_once("additional_pages/header.php");
-    include_once("src/functions.php");
-    
+<?php 
     if(!isset($_POST["codice_referto"])){
+      include_once("additional_pages/header.php");
+      include_once("src/functions.php");
 ?>
 
   <main>
@@ -34,12 +33,22 @@
     $response = curl_exec($curl);
     curl_close($curl);
     $esame = json_decode($response);
+    if(isset($esame->state)){
+      if($esame->state == 0){
+        header("location: additional_pages/codice_scaduto.php");
+        exit();
+      }
+    }
     $id_esame = $esame->id_esame;
 
     $completato = "No";
     if($esame->terminato == 1){
       $completato = "Si";
     }
+
+    
+    include_once("additional_pages/header.php");
+    include_once("src/functions.php");
 
 ?>
 <section class="gradient-custom">

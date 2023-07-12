@@ -219,10 +219,14 @@ function getPrenotazioni($data_scelta, $id_operatore){
             $stringa_completa .= '<div class="col-sm-2"><p><b>Ora</b></p></div><div class="col-sm-10"><p>' . $orario . '</p></div>';
             $stringa_completa .= '<div class="col-sm-2"><p><b>Codice fiscale</b></p></div><div class="col-sm-10"><p>' . $esame->codice_utente . '</p></div>';
             $stringa_completa .= '<div class="col-sm-2"><p><b>Completato</b></p></div><div class="col-sm-10"><p>' . $completato . '</p></div>';
-            $stringa_completa .= '<form action="../esame.php" method="get">
+            $stringa_completa .= '<div class="col-sm-2"><form action="esame.php" method="get">
                                         <input type="hidden" name="id_esame" value="' . $esame->id . '">
                                         <button type="submit" class="btn btn-primary">Gestisci</button>
-                                    </form><br><br>';
+                                    </form></div>';  
+            $stringa_completa .= '<div class="col-sm-2"><form action="src/check_delete_esame.php" method="get">
+                                    <input type="hidden" name="id_esame" value="' . $esame->id . '">
+                                    <button type="submit" class="btn btn-danger")>Elimina</button>
+                                </form></div><div class="col-8"></div><br><br>';                   
             $stringa_completa .= '</div><hr>';
         }
     }

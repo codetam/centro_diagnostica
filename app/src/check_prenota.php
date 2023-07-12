@@ -37,7 +37,7 @@ if(isset($_POST["submit"]) && isset($_SESSION["codice_fiscale"])){
         header("location: ../signup.php?error=" . $response["message"]);
         exit();
     }
-    header("location: ../prenotazione_successo.php");
+    header("location: ../additional_pages/prenotazione_successo.php");
     exit();
 }
 else {

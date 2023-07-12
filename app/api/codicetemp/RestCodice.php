@@ -45,7 +45,7 @@ class RestCodice{
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             $risposta = array(
                 'state' => 0,
-                'message' => "Creazione referto fallita."
+                'message' => "Creazione codice fallita."
             );
             header('Content-Type: application/json');
             echo json_encode($risposta, JSON_PRETTY_PRINT);
@@ -117,11 +117,22 @@ class RestCodice{
         $resultData = mysqli_stmt_get_result($stmt);
 
 		$codice;
+        $flag_exists = 0;
 		while( $record = mysqli_fetch_assoc($resultData) ) {
+            $flag_exists = 1;
 			$codice = $record;
 		}
         mysqli_stmt_close($stmt);
 
+        if(!$flag_exists){
+            $risposta = array(
+                'state' => 0,
+                'message' => 'Codice non esistente'
+            );
+            header('Content-Type: application/json');
+            echo json_encode($risposta, JSON_PRETTY_PRINT);	
+            exit();
+        }
 		header('Content-Type: application/json');
         echo json_encode($codice, JSON_PRETTY_PRINT);	
 	}

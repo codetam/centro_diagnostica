@@ -50,17 +50,32 @@ session_start();
                 <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                     <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
                     <li class="nav-item mx-2-">
-                        <a class="nav-link" aria-current="page" href="../">Home</a>
+                        <a class="nav-link" aria-current="page" href=".">Home</a>
+                    </li>
+                <?php if(isset($_SESSION["codice_fiscale"])){ ?>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="about.php">Informazioni</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="../">About</a>
+                        <a class="nav-link" href="prenota.php">Prenota</a>
+                    </li>
+                <?php } elseif(isset($_SESSION["id_operatore"])){ ?>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="about.php">Informazioni</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="../">Services</a>
+                        <a class="nav-link" href="statistiche.php">Statistiche</a>
+                    </li>
+                <?php } else { ?>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="about.php">Informazioni</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="../">Contact</a>
+                        <a class="nav-link" href="login.php">Prenota</a>
                     </li>
+                <?php
+                    }
+                ?> 
                     </ul>
                 <?php
                     if(!isset($_SESSION["codice_fiscale"]) && !isset($_SESSION["id_operatore"])){
