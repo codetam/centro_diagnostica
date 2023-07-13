@@ -74,35 +74,35 @@
 ?>
 
 <script>
-  // Calendario per selezionare la data
-  $(function() {
-      $( "#data_esame" ).datepicker({
-          dateFormat:"dd/mm/yy",
-          onSelect: function(dateText, inst) {
-          const orario_input = document.getElementById('orario');
-          orario_input.selectedIndex = 0;
+// Calendario per selezionare la data
+$( "#data_esame" ).datepicker({
+    beforeShowDay: $.datepicker.noWeekends,
+    minDate:0,
+    dateFormat:"dd/mm/yy",
+    onSelect: function(dateText, inst) {
+    const orario_input = document.getElementById('orario');
+    orario_input.selectedIndex = 0;
 
-          const orario_input_container = document.getElementById('orario_input');
-          // Appena la data è selezionata, compare l'elemento orario
-          if (dateText !== '') {
-            orario_input_container.style.display = 'block';
-            let formattedDate = formatDate(dateText);
-            // Gli orari disponibili sono ritornati dalla richiesta ajax
-            $.ajax({
-                    url: 'api/get_orario.php',
-                    method: 'GET',
-                    data: { data_scelta: formattedDate },
-                    success: function(response) {
-                        orario_input.innerHTML = response;
-                    }
-                });
-          } 
-          else {
-            orario_input_container.style.display = 'none';
-          }
-        }
-      });
-  });
+    const orario_input_container = document.getElementById('orario_input');
+    // Appena la data è selezionata, compare l'elemento orario
+    if (dateText !== '') {
+      orario_input_container.style.display = 'block';
+      let formattedDate = formatDate(dateText);
+      // Gli orari disponibili sono ritornati dalla richiesta ajax
+      $.ajax({
+              url: 'api/get_orario.php',
+              method: 'GET',
+              data: { data_scelta: formattedDate },
+              success: function(response) {
+                  orario_input.innerHTML = response;
+              }
+          });
+    } 
+    else {
+      orario_input_container.style.display = 'none';
+    }
+  }
+});
 // Cambia il formato della data per mantenere coerenza con il database
 function formatDate(dateText) {
   let parts = dateText.split('/');

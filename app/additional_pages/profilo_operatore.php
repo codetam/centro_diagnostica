@@ -80,27 +80,25 @@
 </section>
 
 <script>
-  // Calendario per la selezione della data nella zona prenotazioni
-  $(function() {
-      $( "#data_prenotazioni" ).datepicker({
-          dateFormat:"dd/mm/yy",
-          onSelect: function(dateText, inst) {
-          const lista_prenotazioni = document.getElementById('lista_prenotazioni');
-          if (dateText !== '') {
-            let formattedDate = formatDate(dateText);
-            // Richiesta AJAX per accedere alle prenotazioni
-            $.ajax({
-                    url: 'api/get_prenotazioni.php',
-                    method: 'GET',
-                    data: { data_scelta: formattedDate },
-                    success: function(response) {
-                        lista_prenotazioni.innerHTML = response;
-                    }
-                });
-          }
-        }
-      });
-  });
+// Calendario per la selezione della data nella zona prenotazioni
+$( "#data_prenotazioni" ).datepicker({
+    dateFormat:"dd/mm/yy",
+    onSelect: function(dateText, inst) {
+    const lista_prenotazioni = document.getElementById('lista_prenotazioni');
+    if (dateText !== '') {
+      let formattedDate = formatDate(dateText);
+      // Richiesta AJAX per accedere alle prenotazioni
+      $.ajax({
+              url: 'api/get_prenotazioni.php',
+              method: 'GET',
+              data: { data_scelta: formattedDate },
+              success: function(response) {
+                  lista_prenotazioni.innerHTML = response;
+              }
+          });
+    }
+  }
+});
 
 // Cambio del format della data
 function formatDate(dateText) {
