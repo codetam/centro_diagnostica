@@ -6,7 +6,8 @@ $database = new Database();
 $rest = new RestEsame($database->getConnection());
 switch($requestMethod) {
 	case 'POST':
-		if(isset($_POST["terminato"]) && isset($_POST["data"]) && isset($_POST["ora"]) && isset($_POST["codice_utente"]) && isset($_POST["id_operatore"]) ){
+		if(isset($_POST["terminato"]) && isset($_POST["data"]) && isset($_POST["ora"]) 
+			&& isset($_POST["codice_utente"]) && isset($_POST["id_operatore"]) && isset($_POST["tipologia"]) ){
 			$rest->createEsame($_POST);
 		}
 		break;
