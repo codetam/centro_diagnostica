@@ -16,6 +16,7 @@
 <?php
       exit();
     }
+    // Chiamate API per caricare le informazioni statistiche
     $json = file_get_contents('http://localhost/api/statistiche/read/num_esami');
     $num_esami = json_decode($json);
     $json = file_get_contents('http://localhost/api/statistiche/read/num_sesso');

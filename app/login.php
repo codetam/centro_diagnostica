@@ -13,9 +13,10 @@
             </div>
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
-
+                <!-- Form di Login -->
                 <form action="src/check_login.php" method="post">
                 <?php
+                    // Stampa un messaggio di errore se presente
                     if(isset($_GET["error"]) && $_GET["error"]=="invalid_credentials"){
                         echo '<h5 class="text-danger">Credenziali errate!</h5>';
                     }
@@ -41,12 +42,12 @@
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input type="email" id="email" name="email" class="form-control form-control-lg" />
+                    <input type="email" id="email" name="email" class="form-control form-control-lg" required/>
                     <label class="form-label" for="email">Email</label>
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" required/>
                     <label class="form-label" for="password">Password</label>
                   </div>
 

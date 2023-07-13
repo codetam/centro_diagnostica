@@ -23,7 +23,7 @@
     );
 
     $formData = http_build_query($dati_da_inviare);
-    
+    // Viene chiamata l'API per verificare la presenza del codice e l'id associato al referto
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_POST, true);
@@ -80,6 +80,7 @@
 <script>
   const idReferto = <?php echo $esame->id_esame; ?>;
   
+  // Mostra le immagini associate al referto
   function displayImages() {
   fetch('http://localhost/api/immagine/read/referto/' + idReferto)
     .then(response => response.json())
@@ -98,7 +99,7 @@
         imageContainer.appendChild(document.createElement('br'));
       });
 
-      // Initialize Lightbox
+      // Inizializza lightbox
       lightbox.option({
         'resizeDuration': 200,
         'wrapAround': true
@@ -109,10 +110,8 @@
     });
 }
 
-// Run the code when the page finishes loading
+// La funzione viene chiamata quando la pagina ha finito di caricarsi
 window.addEventListener('load', displayImages);
-
-
 </script>
 
 <style>

@@ -1,5 +1,5 @@
 <?php
-/* Se email o password sono vuote ritorna false */
+// Se email o password sono vuote ritorna false
 function emptyInputLogin($email, $password)
 {
     if (empty($email) || empty($password)) {
@@ -8,8 +8,7 @@ function emptyInputLogin($email, $password)
         return false;
     }
 }
-
-/* Se l'email esiste ritorna la row associata, altrimenti ritorna false */
+// Se l'email esiste ritorna la row associata, altrimenti ritorna false
 function utenteEmailExists($conn, $email)
 {
     $sql = "SELECT * FROM Utenti WHERE email = ?;";
@@ -29,8 +28,7 @@ function utenteEmailExists($conn, $email)
         return false;
     }
 }
-
-/* Ritorna true solo se username e password matchano */
+// Ritorna true solo se username e password matchano
 function loginUser($conn, $email, $password)
 {
     if(emptyInputLogin($email, $password)){
@@ -48,7 +46,7 @@ function loginUser($conn, $email, $password)
         return true;
     }
 }
-
+// Ritorna la riga associata all'operatore, se esiste
 function operatoreEmailExists($conn, $email)
 {
     $sql = "SELECT * FROM Operatori WHERE email = ?;";
@@ -68,8 +66,7 @@ function operatoreEmailExists($conn, $email)
         return false;
     }
 }
-
-/* Ritorna true solo se username e password matchano */
+// Ritorna true solo se username e password matchano
 function loginOperatore($conn, $email, $password)
 {
     if(emptyInputLogin($email, $password)){
@@ -87,8 +84,7 @@ function loginOperatore($conn, $email, $password)
         return true;
     }
 }
-
-/* Crea un nuovo utente e lo inserisce nel database */
+// Crea un nuovo utente e lo inserisce nel database
 function createUser($nome, $cognome, $email, $password, 
                     $telefono, $codice_fiscale, $sesso, $data_nascita, 
                     $citta_nascita, $provincia_nascita, $citta_residenza, 
@@ -132,7 +128,7 @@ function createUser($nome, $cognome, $email, $password,
     return $response;
 }
 
-/* Se un campo è vuoto ritorna false */
+// Se un campo è vuoto ritorna false
 function emptyInputSignup($nome, $cognome, $email, $password, 
                         $telefono, $codice_fiscale, $sesso, $data_nascita, 
                         $citta_nascita, $provincia_nascita, $citta_residenza, 
@@ -147,7 +143,7 @@ function emptyInputSignup($nome, $cognome, $email, $password,
         return false;
     }
 }
-
+// Crea un nuovo esame e lo inserisce nel database
 function prenotaEsame($tipologia, $data, $ora, $codice_utente, $id_operatore){
     // API endpoint
     $url = 'http://localhost/api/esame/create';
@@ -176,7 +172,7 @@ function prenotaEsame($tipologia, $data, $ora, $codice_utente, $id_operatore){
     curl_close($curl);
     return $response;
 }
-
+// Ritorna le possibili opzioni per l'orario, durante la fase di prenotazione
 function getAvailableOrarioOptions($data_scelta){
     $json_esami = file_get_contents('http://localhost/api/esame/read/data/' . $data_scelta);
     $obj_esami = json_decode($json_esami);
@@ -192,6 +188,7 @@ function getAvailableOrarioOptions($data_scelta){
             $time1 = '09:00:00';
             $time2 = '09:30:00';
         }
+        //  Altrimenti viene stampato un intervallo ogni 30 minuti. Se l'orario è già occupato, non viene stampato.
         if (!in_array($time1, $ore_occupate)) {
             $orario_options .= '<option value="' . $time1 . '">' . $i . ':00 - ' . $i . ':30</option>';
         }
@@ -201,7 +198,7 @@ function getAvailableOrarioOptions($data_scelta){
     }
     echo $orario_options;
 }
-
+// Ritorna le prenotazioni per gli esami associati ad una determinata data
 function getPrenotazioni($data_scelta, $id_operatore){
     $json_esami = file_get_contents('http://localhost/api/esame/read/data/' . $data_scelta);
     $obj_esami = json_decode($json_esami);
@@ -213,6 +210,7 @@ function getPrenotazioni($data_scelta, $id_operatore){
             if($esame->terminato == 1){
                 $completato = "Si";
             }
+            // Scrive tutte le informazioni associate ad ogni esame
             $stringa_completa .= '<div class="row">';
             $stringa_completa .= '<div class="col-sm-2"><p><b>ID</b></p></div><div class="col-sm-10"><p>' . $esame->id . '</p></div>';
             $stringa_completa .= '<div class="col-sm-2"><p><b>Tipologia</b></p></div><div class="col-sm-10"><p>' . $esame->tipologia . '</p></div>';
@@ -233,7 +231,7 @@ function getPrenotazioni($data_scelta, $id_operatore){
 
     echo $stringa_completa;
 }
-
+// Scrive un referto e lo salva nel database
 function scriviReferto($id_esame, $testo, $request){
     $json_esame = file_get_contents('http://localhost/api/esame/read/' . $id_esame);
     $obj_esame = json_decode($json_esame);
@@ -266,7 +264,7 @@ function scriviReferto($id_esame, $testo, $request){
     curl_close($curl);
     return $response;
 }
-
+// Verifica se i campi sono vuoti
 function emptyInputReferto($id_esame, $testo)
 {
     if (empty($id_esame) || empty($testo)) {

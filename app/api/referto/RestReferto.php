@@ -89,13 +89,13 @@ class RestReferto{
 		    $messaggio = "Richiesta non valida.";
 		    $state = 0;
 	    }
-	    $rispostaEsame = array(
+	    $risposta = array(
 	    	'state' => $state,
 	    	'messaggio' => $messaggio
 	    );
 
 	    header('Content-Type: application/json');
-	    echo json_encode($rispostaEsame, JSON_PRETTY_PRINT);	
+	    echo json_encode($risposta, JSON_PRETTY_PRINT);	
 	}
     function updateReferto($data){ 		
 		if($data["id_esame"]) {
@@ -122,12 +122,12 @@ class RestReferto{
 			$messaggio = "Richiesta non valida.";
 			$state = 0;
 		}
-		$rispostaEsame = array(
+		$risposta = array(
 			'state' => $state,
 			'messaggio' => $messaggio
 		);
         
 		header('Content-Type: application/json');
-		echo json_encode($rispostaEsame, JSON_PRETTY_PRINT);
+		echo json_encode($risposta, JSON_PRETTY_PRINT);
 	}
 }

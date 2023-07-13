@@ -26,13 +26,11 @@ class RestLuogo{
             echo json_encode($risposta, JSON_PRETTY_PRINT);
             return;
         }
-
         mysqli_stmt_bind_param($checkStmt, "ss", $citta, $provincia);
         mysqli_stmt_execute($checkStmt);
         mysqli_stmt_bind_result($checkStmt, $count);
         mysqli_stmt_fetch($checkStmt);
         mysqli_stmt_close($checkStmt);
-
         if ($count > 0) {
             $risposta = array(
                 'state' => 0,

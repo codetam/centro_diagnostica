@@ -82,7 +82,7 @@ session_start();
                 <?php
                     if(!isset($_SESSION["codice_fiscale"]) && !isset($_SESSION["id_operatore"])){
                 ?>
-                    <!-- Login / Signup -->
+                    <!-- Accedi / Registrati -->
                     <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
                         <a href="../login.php" class="text-white text-decoration-none">Accedi</a>
                         <a href="../signup.php" class="text-white text-decoration-none px-3 py-1 rounded-4"
@@ -91,6 +91,7 @@ session_start();
                 <?php
                     } else {
                 ?>
+                    <!-- Profilo / Log out -->
                     <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
                         <a href="../profilo.php" class="text-white text-decoration-none">Profilo</a>
                         <a href="../src/check_logout.php" class="text-white text-decoration-none px-3 py-1 rounded-4"

@@ -1,6 +1,6 @@
 <?php
 
-/* Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET */
+// Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET
 if(isset($_POST["submit"])){
     $nome = $_POST["nome"];
     $cognome = $_POST["cognome"];
@@ -22,7 +22,7 @@ if(isset($_POST["submit"])){
     $numero_residenza = $_POST["numero_residenza"];
 
     require_once "functions.php";
-
+    // Verifica che i campi non siano vuoti
     if (emptyInputSignup($nome, $cognome, $email, $password, 
                         $telefono, $codice_fiscale, $sesso, $data_nascita, 
                         $citta_nascita, $provincia_nascita, $citta_residenza, 
@@ -30,6 +30,7 @@ if(isset($_POST["submit"])){
         header("location: ../signup.php?error=Compilare%20tutti%20i%20campi!");
         exit();
     }
+    // Crea un nuovo utente
     $json_response = createUser($nome, $cognome, $email, $password, 
                             $telefono, $codice_fiscale, $sesso, $data_nascita, 
                             $citta_nascita, $provincia_nascita, $citta_residenza, 

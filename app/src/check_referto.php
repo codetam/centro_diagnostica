@@ -1,18 +1,18 @@
 <?php
 session_start();
 
-/* Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET */
+// Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET
 if(isset($_POST["submit"]) && isset($_SESSION["id_operatore"]) && isset($_POST["request"])){
     $id_esame = $_POST["id_esame"];
     $testo = $_POST["testo"];
     $request = $_POST["request"];
     
     require_once "functions.php";
-
+    // Verifica che il referto sia vuoto
     if(emptyInputReferto($id_esame, $testo)){
         printError($id_esame);
     }
-
+    // Scrive il referto
     $json_response = scriviReferto($id_esame, $testo, $request);
     if( $json_response === false){
         printError($id_esame);
@@ -27,6 +27,7 @@ if(isset($_POST["submit"]) && isset($_SESSION["id_operatore"]) && isset($_POST["
         printError($id_esame);
     }
     $success_message = "";
+    // Stampa "Caricato" o "Modificato" in base al tipo di richiesta
     if($request == "crea"){
         $success_message = "Referto%20caricato%20con%20successo.";
     }

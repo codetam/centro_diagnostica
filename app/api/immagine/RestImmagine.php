@@ -27,14 +27,10 @@ class RestImmagine{
             echo json_encode($risposta, JSON_PRETTY_PRINT);
             return;
         }
-    
-        // Bind the parameters
         mysqli_stmt_bind_param($stmt, "bis", $content_param, $id_esame, $nome);
     
-        // Send the blob content as a stream of chunks
+        // Necessario per salvare un contenuto del blob di dimensioni grandi
         mysqli_stmt_send_long_data($stmt, 0, $contenuto);
-    
-        // Execute the statement
         mysqli_stmt_execute($stmt);
     
         if (mysqli_stmt_affected_rows($stmt) > 0) {
@@ -55,7 +51,6 @@ class RestImmagine{
         header('Content-Type: application/json');
         echo json_encode($risposta, JSON_PRETTY_PRINT);
     }
-    
     public function getImmagine($id) {		
 		$query = "
 			SELECT id, contenuto, nome, id_esame

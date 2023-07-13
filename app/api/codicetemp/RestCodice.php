@@ -157,13 +157,13 @@ class RestCodice{
 		    $messaggio = "Richiesta non valida.";
 		    $state = 0;
 	    }
-	    $rispostaEsame = array(
+	    $risposta = array(
 	    	'state' => $state,
 	    	'messaggio' => $messaggio
 	    );
 
 	    header('Content-Type: application/json');
-	    echo json_encode($rispostaEsame, JSON_PRETTY_PRINT);	
+	    echo json_encode($risposta, JSON_PRETTY_PRINT);	
 	}
     public function updateCodice($data){
         if($data["id_esame"]) {  
@@ -190,12 +190,12 @@ class RestCodice{
 			$messaggio = "Richiesta non valida.";
 			$state = 0;
 		}
-		$rispostaEsame = array(
+		$risposta = array(
 			'state' => $state,
 			'messaggio' => $messaggio
 		);
         
 		header('Content-Type: application/json');
-		echo json_encode($rispostaEsame, JSON_PRETTY_PRINT);
+		echo json_encode($risposta, JSON_PRETTY_PRINT);
     }
 }

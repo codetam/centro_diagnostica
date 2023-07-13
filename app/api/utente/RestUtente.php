@@ -35,11 +35,9 @@ class RestUtente{
         $sql = "INSERT INTO " .$this->tabellaLuoghi. " 
         (citta, provincia) VALUES(?,?);";
         $stmt = mysqli_stmt_init($this->conn);
-
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             return false;
         }
-
         mysqli_stmt_bind_param($stmt, "ss", 
                                     $citta,
                                     $provincia);
@@ -57,11 +55,9 @@ class RestUtente{
         $sql = "INSERT INTO " .$this->tabellaResidenze. " 
         (codice_utente, id_luogo, via, numero) VALUES(?,?,?,?);";
         $stmt = mysqli_stmt_init($this->conn);
-
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             return false;
         }
-
         mysqli_stmt_bind_param($stmt, "sisi", 
                                     $codice_utente,
                                     $id_luogo,
@@ -79,7 +75,6 @@ class RestUtente{
         $sql = "INSERT INTO " .$this->tabellaUtenti. " 
         (codice_fiscale, nome, cognome, email, password, telefono, luogo_nascita, data_nascita, sesso) VALUES(?,?,?,?,?,?,?,?,?);";
         $stmt = mysqli_stmt_init($this->conn);
-
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             return false;
         }
@@ -142,13 +137,11 @@ class RestUtente{
                 if($id_luogo_nascita == 0){                                             // L'identificazione del luogo fallisce
                     return $this->creazioneFallita("Errore nella creazione del luogo");
                 }
-            }
-            
+            }  
             // Viene aggiunto un nuovo Utente
             if($this->createUtenteHelper($codice_fiscale, $nome, $cognome, $email, $password, $telefono, $data_nascita, $id_luogo_nascita, $sesso) == false){
                 return $this->creazioneFallita("Creazione utente fallita");
             }
-
             // Controlla che il luogo di residenza già esista
             $id_luogo_residenza = $this->searchLuogo($citta_residenza, $provincia_residenza);
             if($id_luogo_residenza == 0){                                                // Il luogo non esiste
@@ -188,9 +181,9 @@ class RestUtente{
         mysqli_stmt_execute($stmt);
         $resultData = mysqli_stmt_get_result($stmt);
 
-		$utente = array();
+		$utente;
 		while( $record = mysqli_fetch_assoc($resultData) ) {
-			$utente[] = $record;
+			$utente = $record;
 		}
         mysqli_stmt_close($stmt);
 
@@ -225,7 +218,6 @@ class RestUtente{
         $resultData = mysqli_stmt_get_result($stmt);
 
 		$utente;
-
 		while( $record = mysqli_fetch_assoc($resultData) ) {
 			$utente = $record;
 		}

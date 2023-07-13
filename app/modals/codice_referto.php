@@ -21,8 +21,8 @@
     }
 
     .copy-icon img {
-        width: 20px; /* Adjust the width as needed */
-        height: 20px; /* Adjust the height as needed */
+        width: 20px;
+        height: 20px;
     }
 
     .success-message {

@@ -8,5 +8,4 @@ $sql = "DELETE FROM CodiciTemporanei WHERE data_creazione <= (NOW() - INTERVAL 5
 $result = $database->getConnection()->query($sql);
 
 $database->getConnection()->close();
-
 ?>

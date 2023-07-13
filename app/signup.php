@@ -13,7 +13,7 @@
               }
             ?>
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registrazione</h3>
-
+            <!-- Form di registrazione -->
             <form action="src/check_signup.php" method="post">
               <div class="row">
                 <div class="col-md-6 mb-2">
@@ -132,6 +132,7 @@
 </html>
 
 <script>
+  // Datepicker per la scelta su calendario
   $(function() {
         $( "#data_nascita" ).datepicker({
            dateFormat:"dd/mm/yy",

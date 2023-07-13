@@ -11,17 +11,18 @@
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5">
             <?php
+              // Stampa il messaggio di errore se presente
               if(isset($_GET["error"])){
                 echo '<h5 class="mb-4 text-danger">' . $_GET["error"] . '</h5>';
               }
             ?>
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Prenota un esame</h3>
-
+            <!-- Form di prenotazione -->
             <form action="src/check_prenota.php" method="post">
               <div class="row">
                 <label for="tipologia" class="form-label">Tipologia</label>
                 <div class="col-12">
-                  <select class="mb-4 select form-control-lg" id="tipologia" name="tipologia">
+                  <select class="mb-4 select form-control-lg" id="tipologia" name="tipologia" required>
                     <option value="0" disabled>Tipologia</option>
                     <option value="ecografia">Ecografia</option>
                     <option value="radiografia">Radiografia</option>
@@ -43,7 +44,7 @@
               <div class="row" id="orario_input" style="display: none;">
                 <label for="orario" class="form-label">Orario</label>
                 <div class="col-12">
-                  <select class="mb-4 select form-control-lg" id="orario" name="orario">
+                  <select class="mb-4 select form-control-lg" id="orario" name="orario" required>
                   </select>
                 </div>
               </div>
@@ -73,6 +74,7 @@
 ?>
 
 <script>
+  // Calendario per selezionare la data
   $(function() {
       $( "#data_esame" ).datepicker({
           dateFormat:"dd/mm/yy",
@@ -81,10 +83,11 @@
           orario_input.selectedIndex = 0;
 
           const orario_input_container = document.getElementById('orario_input');
+          // Appena la data è selezionata, compare l'elemento orario
           if (dateText !== '') {
             orario_input_container.style.display = 'block';
             let formattedDate = formatDate(dateText);
-
+            // Gli orari disponibili sono ritornati dalla richiesta ajax
             $.ajax({
                     url: 'api/get_orario.php',
                     method: 'GET',
@@ -100,7 +103,7 @@
         }
       });
   });
-
+// Cambia il formato della data per mantenere coerenza con il database
 function formatDate(dateText) {
   let parts = dateText.split('/');
   let formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];

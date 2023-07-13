@@ -102,41 +102,38 @@
   let idEsame = <?php echo $id_esame; ?>;
 
   document.getElementById('aggiungiImmagineButton').addEventListener('click', function() {
-    // Create an input element of type 'file'
+    // Crea un elemento input di tipo 'file'
     let input = document.createElement('input');
     input.type = 'file';
-
+    // Clicca sull'elemento per aprire la finestra di dialogo
     input.click();
 
-    // Handle the file selection
     input.addEventListener('change', function() {
       let file = input.files[0];
       if (file) {
+        // Inizializza oggetto FileReader
         let reader = new FileReader();
 
-        // Read the file content
         reader.addEventListener('load', function() {
           let fileContent = reader.result;
 
-          // Create a FormData object to send the file data
+          // Crea un oggetto formData per mandare i dati dell'immagine via POST all'API
           let formData = new FormData();
           formData.append('id_esame', idEsame);
           formData.append('contenuto', fileContent);
           formData.append('nome', file.name);
 
-          // Send a POST request to the API endpoint
+          // Manda una richiesta API all'endpoint POST
           fetch('http://localhost/api/immagine/create', {
             method: 'POST',
             body: formData
           })
           .then(function(response) {
-            // Handle the response from the API
             if (response.ok) {
-              // Image upload successful
               let successUrl = 'http://localhost/esame.php?id_esame=' + idEsame + '&success=Immagine%20aggiunta%20con%20successo.';
               window.location.href = successUrl;
-            } else {
-              // Image upload failed
+            } 
+            else {
               let errorUrl = 'http://localhost/esame.php?id_esame=' + idEsame;
               window.location.href = errorUrl;
             }
@@ -147,20 +144,22 @@
           });
         });
 
-        // Read the file as data URL
+        // L'immagine viene codificata nin base64
         reader.readAsDataURL(file);
       }
     });
   });
   
+  // Mostra le immagini associate al referto
   function displayImages() {
+  // Chiamata API verso le immagini del referto
   fetch('http://localhost/api/immagine/read/referto/' + idEsame)
     .then(response => response.json())
     .then(data => {
-      const images = data; // Assuming 'data' is an array of image objects
+      const images = data; // 'data' è un array di oggetti JSON 'Immagine'
 
       const imageContainer = document.getElementById('imageContainer');
-      imageContainer.innerHTML = ''; // Clear the container before adding images
+      imageContainer.innerHTML = ''; // Viene svuotato il contenuto HTML
 
       images.forEach((imageData) => {
         const rowDiv = document.createElement('div');
@@ -169,6 +168,7 @@
         const colDiv = document.createElement('div');
         colDiv.classList.add('col-sm-10');
 
+        // Testo dell'immagine, cliccabile
         const aElement = document.createElement('a');
         aElement.href = imageData.contenuto;
         aElement.setAttribute('data-lightbox', 'image-gallery');
@@ -180,6 +180,7 @@
         const deleteDiv = document.createElement('div');
         deleteDiv.classList.add('col-sm-2');
 
+        // Button per l'eliminazione
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'Elimina';
         deleteButton.classList.add('btn', 'btn-danger');
@@ -194,7 +195,7 @@
         imageContainer.appendChild(document.createElement('br'));
       });
 
-      // Initialize Lightbox
+      // Inizializza lightbox
       lightbox.option({
         'resizeDuration': 200,
         'wrapAround': true
@@ -205,7 +206,9 @@
     });
 }
 
+// Elimina l'immagine dopo aver cliccato il button
 function deleteImage(imageId) {
+  // Chiamata all'API per l'eliminazione
   fetch('http://localhost/api/immagine/delete/' + imageId, {
     method: 'GET'
   })
@@ -223,7 +226,7 @@ function deleteImage(imageId) {
     });
 }
 
-// Run the code when the page finishes loading
+// La funzione viene chiamata quando la pagina ha finito di caricarsi
 window.addEventListener('load', displayImages);
 </script>
 

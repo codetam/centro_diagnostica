@@ -208,7 +208,7 @@ function saveUuidVariable(id){
 
   const params = new URLSearchParams();
   params.append('id_esame', id);
-
+  // Richiesta all'API per creare un codice temporaneo
   fetch('http://localhost/api/codicetemp/create', {
     method: 'POST',
     headers: {
@@ -222,18 +222,14 @@ function saveUuidVariable(id){
       fetch('http://localhost/api/codicetemp/read/' + id)
       .then(response => response.json())
       .then(data => {
+        // Il codice viene posto nello spazio apposito
         spazio_codice.innerHTML = data.codice_univoco;
       })
       .catch(error => {
-        console.error('Error:', error);
       });
-    } 
-    else {
-      console.error('POST request failed:', data.message);
     }
   })
   .catch(error => {
-    console.error('Error:', error);
   });
 }
 </script>

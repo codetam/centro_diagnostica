@@ -2,7 +2,7 @@
 
 session_start();
 
-/* Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET */
+// Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET
 if(isset($_SESSION["id_operatore"]) && isset($_GET["id_esame"])){
     $json = file_get_contents('http://localhost/api/esame/delete/' . $_GET["id_esame"]);
     $esame_eliminato = json_decode($json);

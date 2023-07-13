@@ -9,10 +9,10 @@ switch($requestMethod) {
         if(isset($_GET['id'])){
             $rest->getEsame($_GET['id']);
         }
-        else if(isset($_GET['data_esami'])){
+        elseif(isset($_GET['data_esami'])){
             $rest->getEsamiData($_GET['data_esami']);
         }
-        else if(isset($_GET['codice_fiscale'])){
+        elseif(isset($_GET['codice_fiscale'])){
             $rest->getEsamiUtente($_GET['codice_fiscale']);
         }
         else{

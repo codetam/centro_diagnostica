@@ -88,14 +88,12 @@
           const lista_prenotazioni = document.getElementById('lista_prenotazioni');
           if (dateText !== '') {
             let formattedDate = formatDate(dateText);
-            // Make an AJAX request to fetch the updated options
+            // Richiesta AJAX per accedere alle prenotazioni
             $.ajax({
                     url: 'api/get_prenotazioni.php',
                     method: 'GET',
                     data: { data_scelta: formattedDate },
                     success: function(response) {
-                        // Update the options of the orario select element
-                        console.log(response);
                         lista_prenotazioni.innerHTML = response;
                     }
                 });

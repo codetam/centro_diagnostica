@@ -2,7 +2,7 @@
 
 session_start();
 
-/* Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET */
+// Verifica che tutto sia corretto e in caso contrario invia errori alla pagina precedente tramite GET
 if(isset($_POST["submit"]) && isset($_SESSION["codice_fiscale"])){
     $tipologia = $_POST["tipologia"];
     $orario = $_POST["orario"];
@@ -26,6 +26,7 @@ if(isset($_POST["submit"]) && isset($_SESSION["codice_fiscale"])){
     
     require_once "functions.php";
 
+    // Viene prenotato l'esame
     $json_response = prenotaEsame($tipologia, $data_esame, $orario, $codice_utente, $id_operatore);
     if( $json_response === false){
         header("location: ../prenota.php?error=Errore%20durante%20la%20prenotazione");

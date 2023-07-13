@@ -1,6 +1,7 @@
 <?php
 
 class Database{
+    // Dati sul database
     private $host = 'database';
     private $user = 'root';
     private $password = "WkG7vqWUF65W9o!z";
