@@ -59,9 +59,10 @@ CREATE TABLE `Esami` (
   PRIMARY KEY (`id`),
   KEY `codice_utente` (`codice_utente`),
   KEY `id_operatore` (`id_operatore`),
+  KEY `index_data` (`data`),
   CONSTRAINT `Esami_ibfk_1` FOREIGN KEY (`codice_utente`) REFERENCES `Utenti` (`codice_fiscale`),
   CONSTRAINT `Esami_ibfk_2` FOREIGN KEY (`id_operatore`) REFERENCES `Operatori` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +114,25 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `dec_num_esami_on_delete` AFTER DELETE ON `Esami` FOR EACH ROW BEGIN
+    IF OLD.terminato = 0 THEN
+        UPDATE Operatori SET num_esami = num_esami - 1 WHERE id = OLD.id_operatore;
+    END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `Immagini`
@@ -129,7 +149,7 @@ CREATE TABLE `Immagini` (
   PRIMARY KEY (`id`),
   KEY `Immagini_ibfk_1` (`id_esame`),
   CONSTRAINT `Immagini_ibfk_1` FOREIGN KEY (`id_esame`) REFERENCES `Referti` (`id_esame`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +175,7 @@ CREATE TABLE `Luoghi` (
   `citta` varchar(128) NOT NULL,
   `provincia` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +203,7 @@ CREATE TABLE `Operatori` (
   `password` varchar(128) NOT NULL,
   `num_esami` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +293,7 @@ CREATE TABLE `Residenze` (
   `numero` int NOT NULL,
   PRIMARY KEY (`codice_utente`),
   UNIQUE KEY `Residenze` (`id_luogo`,`via`,`numero`),
-  CONSTRAINT `Residenze_ibfk_1` FOREIGN KEY (`codice_utente`) REFERENCES `Utenti` (`codice_fiscale`),
+  CONSTRAINT `Residenze_ibfk_1` FOREIGN KEY (`codice_utente`) REFERENCES `Utenti` (`codice_fiscale`) ON DELETE CASCADE,
   CONSTRAINT `Residenze_ibfk_2` FOREIGN KEY (`id_luogo`) REFERENCES `Luoghi` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -331,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-12 18:15:14
+-- Dump completed on 2023-07-13 20:11:27
