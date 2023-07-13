@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "\n\n1. Aggiungo un utente nel database\n"
+echo "\n1. Aggiungo un utente nel database\n"
 curl -X POST -d 'codice_fiscale=TEST1234TEST1234&nome=NomeTest&cognome=CognomeTest&email=user@test.com&password=1234&telefono=3334445566&sesso=M&data_nascita=2000-01-01&citta_nascita=CittaNascita&provincia_nascita=PN&citta_residenza=CittaResidenza&provincia_residenza=PR&via_residenza=Via&numero_residenza=10' http://localhost/api/utente/create
 
 echo "\n\n2. Verifico la presenza dell'utente\n"
