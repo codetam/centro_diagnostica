@@ -102,3 +102,12 @@ session_start();
             </div>
         </div>
     </nav>
+
+<style>
+@media(max-width: 991px){
+  .sidebar{
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+  }
+}
+</style>
