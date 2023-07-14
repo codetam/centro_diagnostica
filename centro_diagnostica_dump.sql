@@ -28,7 +28,7 @@ CREATE TABLE `CodiciTemporanei` (
   `data_creazione` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_esame`),
   UNIQUE KEY `codice_univoco_unique` (`codice_univoco`),
-  CONSTRAINT `fk_codicitemporanei_id_referti` FOREIGN KEY (`id_esame`) REFERENCES `Referti` (`id_esame`)
+  CONSTRAINT `fk_codici_referti` FOREIGN KEY (`id_esame`) REFERENCES `Referti` (`id_esame`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -62,7 +62,7 @@ CREATE TABLE `Esami` (
   KEY `index_data` (`data`),
   CONSTRAINT `Esami_ibfk_1` FOREIGN KEY (`codice_utente`) REFERENCES `Utenti` (`codice_fiscale`),
   CONSTRAINT `Esami_ibfk_2` FOREIGN KEY (`id_operatore`) REFERENCES `Operatori` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `Immagini` (
   PRIMARY KEY (`id`),
   KEY `Immagini_ibfk_1` (`id_esame`),
   CONSTRAINT `Immagini_ibfk_1` FOREIGN KEY (`id_esame`) REFERENCES `Referti` (`id_esame`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +175,7 @@ CREATE TABLE `Luoghi` (
   `citta` varchar(128) NOT NULL,
   `provincia` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +203,7 @@ CREATE TABLE `Operatori` (
   `password` varchar(128) NOT NULL,
   `num_esami` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-13 20:11:27
+-- Dump completed on 2023-07-14  7:52:04
