@@ -133,9 +133,7 @@
 
 <script>
   // Datepicker per la scelta su calendario
-  $(function() {
-        $( "#data_nascita" ).datepicker({
-           dateFormat:"dd/mm/yy",
-        });
+    $( "#data_nascita" ).datepicker({
+        dateFormat:"dd/mm/yy",
     });
 </script>
