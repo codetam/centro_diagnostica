@@ -119,13 +119,4 @@ window.addEventListener('load', displayImages);
         white-space: pre-wrap;
         word-wrap: break-word;
     }
-  .lightbox-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #f1f1f1;
-    border: none;
-    color: #333;
-    font-size: 16px;
-    cursor: pointer;
-  }
 </style>
