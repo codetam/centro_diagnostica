@@ -81,7 +81,6 @@ $( "#data_esame" ).datepicker({
     dateFormat:"dd/mm/yy",
     onSelect: function(dateText, inst) {
     const orario_input = document.getElementById('orario');
-    orario_input.selectedIndex = 0;
 
     const orario_input_container = document.getElementById('orario_input');
     // Appena la data è selezionata, compare l'elemento orario
