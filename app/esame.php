@@ -144,7 +144,7 @@
           });
         });
 
-        // L'immagine viene codificata nin base64
+        // L'immagine viene codificata in base64
         reader.readAsDataURL(file);
       }
     });
